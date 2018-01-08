@@ -1,0 +1,17 @@
+com\lexicon\libraryservice\rest\MemberResource.class
+com\lexicon\libraryservice\model\Book.class
+com\lexicon\libraryservice\data\MemberDAO.class
+com\lexicon\libraryservice\rest\LoanResource.class
+com\lexicon\libraryservice\data\BookDAO.class
+com\lexicon\libraryservice\data\BookDAOInterface.class
+com\lexicon\libraryservice\rest\JaxRsActivator.class
+com\lexicon\libraryservice\model\Loan_.class
+com\lexicon\libraryservice\data\LoanDAOInterface.class
+com\lexicon\libraryservice\model\Member_.class
+com\lexicon\libraryservice\model\Book_.class
+org\jboss\tools\examples\util\Resources.class
+com\lexicon\libraryservice\data\MembersDAOInterface.class
+com\lexicon\libraryservice\model\Loan.class
+com\lexicon\libraryservice\rest\BookResource.class
+com\lexicon\libraryservice\data\LoanDAO.class
+com\lexicon\libraryservice\model\Member.class
