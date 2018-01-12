@@ -46,13 +46,13 @@ public class LoanDAO implements LoanDAOInterface{
 	}
 	
 	@Override
-	public Loan getLoanOfMemberWithBook(Member member, Book book)
+	public List<Loan> getLoanOfMemberWithBook(Member member, Book book)
 	{		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Loan> criteria = cb.createQuery(Loan.class);
 		Root<Loan> loan = criteria.from(Loan.class);
 		criteria.select(loan).where(cb.equal(loan.get("member"), member)).where(cb.equal(loan.get("book"), book));
-		return em.createQuery(criteria).getSingleResult();	
+		return em.createQuery(criteria).getResultList();	
 	}
 	
 	@Override
@@ -76,7 +76,10 @@ public class LoanDAO implements LoanDAOInterface{
 	@Override
 	public void deleteLoan(Member member, Book book)
 	{
-		Loan loan = getLoanOfMemberWithBook(member, book);
+		List<Loan> loans = getLoanOfMemberWithBook(member, book);
+		Loan loan = null; 
+		if (!loans.isEmpty()) {loan = loans.get(0);}
+		
 		em.remove(loan);
 	}
 		

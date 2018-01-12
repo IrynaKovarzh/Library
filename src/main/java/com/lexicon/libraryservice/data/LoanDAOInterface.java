@@ -20,6 +20,6 @@ public interface LoanDAOInterface {
 	List<Loan> getAllLoansExpiredByDate(LocalDate date);
 	List<Loan> getAllLoansOfMember(Member member);
 	List<Loan> getAllLoansBook(Long bookId);
-	Loan getLoanOfMemberWithBook(Member member, Book book);
+	List<Loan> getLoanOfMemberWithBook(Member member, Book book);
 	//get all overdue in 2 days, grouped/sorted by member	
 }

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -135,7 +136,7 @@ public class LoanResource {
     @DELETE    
     @Path("/{memberId}/book/{bookId}")	  
    	public Response returnBookByMember(@PathParam("memberId") Long memberId, @PathParam("bookId") Long bookId) throws URISyntaxException{
-       	Response.ResponseBuilder builder; 
+       	Response.ResponseBuilder builder = Response.ok(); 
        	       
        	Book book = booksRepository.getBookById(bookId);			
 		Member member  = membersRepository.getMemberById(memberId);
@@ -144,15 +145,20 @@ public class LoanResource {
 		 builder = Response.status(Response.Status.NOT_FOUND);
 		} 
 		else
-		{					
-			Loan loan = dao.getLoanOfMemberWithBook(member, book);		
+		{	
+			try {
+				
+			List<Loan> loans = dao.getLoanOfMemberWithBook(member, book);					
+			Loan loan = null; 
+			if (!loans.isEmpty()) {loan = loans.get(0);}
 			
 			membersRepository.deleteLoan(memberId, loan);
 			
 			booksRepository.returnCopy(bookId);
 			
 			dao.deleteLoan(member, book);
-			builder = Response.ok();
+		//	builder = Response.ok();
+			} catch (Exception e) {}
 		}
 	      return builder.build();
    	}
@@ -174,7 +180,10 @@ public class LoanResource {
 		} 
 		else
 		{		
-			Loan loan = dao.getLoanOfMemberWithBook(member, book);		
+			List<Loan> loans  = dao.getLoanOfMemberWithBook(member, book);	
+			Loan loan = null; 
+			if (!loans.isEmpty()) {loan = loans.get(0);}
+			
 			if (loan != null) {
 				dao.prolongLoan(loan, date);
 			}						
