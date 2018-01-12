@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 	import javax.persistence.criteria.Root;
 
 import com.lexicon.libraryservice.model.Book;
+import com.lexicon.libraryservice.model.Loan;
 import com.lexicon.libraryservice.model.Member;
 
 import java.util.List;
@@ -19,7 +20,6 @@ import java.util.List;
 
 	    @Inject
 	    private EntityManager em;
-
 	 
 	    public Member getMemberById(Long id) {
 	        return em.find(Member.class, id);
@@ -47,8 +47,19 @@ import java.util.List;
 		}
 		
 		@Override
+		public void delete(Member member){
+			em.remove(member);
+		}
+		
+		@Override
+		public void setPhoneNumber(Member member, String number){
+			member.setPhoneNumber(number);
+			em.merge(member);
+		}
+		
+		@Override
 		public List<Member> getAllMembers() {		
-			TypedQuery<Member> query = em.createQuery("SELECT b FROM Member b", Member.class);
+			TypedQuery<Member> query = em.createQuery("SELECT M FROM Member M", Member.class);
 			return query.getResultList();
 		}
 	    
@@ -57,5 +68,23 @@ import java.util.List;
 	    	Member member = em.find(Member.class, id);
 			return member != null;	    	
 		};
+		
+		@Override
+		 public List<Loan> getAllLoansOfMember(Long id) {
+			Member member = em.find(Member.class, id);
+			return member.getLoans();
+		 }
+		
+		 @Override
+		 public void addLoan(Long id, Loan loan) {
+			Member member = em.find(Member.class, id);
+			member.addLoan(loan);
+		 }
+		 
+		 @Override
+		 public void deleteLoan(Long id, Loan loan) {
+			Member member = em.find(Member.class, id);
+			member.deleteLoan(loan);
+		 }
 	}
 	

@@ -11,9 +11,11 @@ public interface BookDAOInterface {
 	boolean contains(long id);
 	
 	void loanCopy(long id);
+	void returnCopy(long Id);
 	
 	Book findBookByISBN(String isbn);
 	List<Book> findBookByTitle(String title);
 	List<Book> findBookByAuthor(String author);
 	List<Book> findBookByGenre(String genre);
+	
 }

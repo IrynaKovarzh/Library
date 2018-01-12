@@ -1,18 +1,21 @@
 package com.lexicon.libraryservice.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-//@Table(name = "books")
 public class Book {
 
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
-	//@Column(name = "BOOK_ID")
+	@GeneratedValue(strategy =GenerationType.IDENTITY)	
 	private Long id;
 	
 	private String strISBN;
@@ -24,6 +27,7 @@ public class Book {
 	private String shelfColumn;
 	
 	private int copies;
+	
 	private int copiesAvailableToLoan;
 
 	public Book() {
@@ -41,8 +45,9 @@ public class Book {
 		this.shelfRow = shelfRow;
 		this.shelfColumn = shelfColumn;
 		
-		this.copies = copies;
+		this.copies = copies;			
 		this.copiesAvailableToLoan = copies;
+				
 	}
 	
 	public Long getId() {
@@ -120,7 +125,6 @@ public class Book {
 		this.copies = copies;
 	}
 
-	//Copies
 	public int getCopiesAvailableToLoan() {
 		return copiesAvailableToLoan;
 	}
@@ -133,4 +137,7 @@ public class Book {
 		if (this.copiesAvailableToLoan > 0) --this.copiesAvailableToLoan;
 	}
 	
+	public void returnCopy() {
+		++this.copiesAvailableToLoan;
+	}	
 }

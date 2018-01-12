@@ -81,4 +81,9 @@ public class BookDAO implements BookDAOInterface {
 	public void loanCopy(long id) {
 		em.find(Book.class, id).loanCopy();
 	}
+	
+	@Override
+	public void returnCopy(long id) {
+		em.find(Book.class, id).returnCopy();
+	}
 }
