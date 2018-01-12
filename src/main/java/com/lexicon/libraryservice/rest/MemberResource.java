@@ -127,7 +127,6 @@ public class MemberResource {
             return member != null;
         }
         
-        /*
         @DELETE    
         @Path("/{id}")	  
        	public Response returnBookByMember(@PathParam("id") Long id) throws URISyntaxException{           	
@@ -141,12 +140,14 @@ public class MemberResource {
     		} else if ( !loans.isEmpty() ) {
     			builder = Response.status(Response.Status.METHOD_NOT_ALLOWED).entity("the loan list is not empty");
     		} else
-    		{		
+    		{	try {	
     			dao.delete(member);
+    		} catch (Exception e) {
+    			
+    		}
     		}    		
     	      return builder.build();
-       	}*/
-       	
+       	}       	
         
         @PUT
        	@Path("/{id}/phnum/{number}")	
