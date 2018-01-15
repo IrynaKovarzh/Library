@@ -47,7 +47,7 @@ public class LoanResource {
 	}
 	
 	@POST	
-	@Path("/{memberId}/book/{bookId}")	
+	@Path("/member/{memberId}/book/{bookId}")	
 	public Response saveLoan(@PathParam("memberId") Long memberId, @PathParam("bookId") Long bookId) throws URISyntaxException{
 		
 		Response.ResponseBuilder builder = Response.created(new URI("localhost:8080/Library/rest/loan/" + memberId + "/book/" + bookId));
@@ -134,7 +134,7 @@ public class LoanResource {
 	}
     
     @DELETE    
-    @Path("/{memberId}/book/{bookId}")	  
+    @Path("/member/{memberId}/book/{bookId}")	  
    	public Response returnBookByMember(@PathParam("memberId") Long memberId, @PathParam("bookId") Long bookId) throws URISyntaxException{
        	Response.ResponseBuilder builder = Response.ok(); 
        	       
@@ -164,7 +164,7 @@ public class LoanResource {
    	}
     
     @PUT
-   	@Path("/{memberId}/book/{bookId}/date/{newdatestr}")	
+   	@Path("/member/{memberId}/book/{bookId}/date/{newdatestr}")	
    	@Produces(MediaType.APPLICATION_JSON)
    	public Response setNewDate(@PathParam("memberId") Long memberId, @PathParam("bookId") Long bookId, @PathParam("newdatestr") String newdatestr) throws URISyntaxException{
     	Response.ResponseBuilder builder = Response.ok();
